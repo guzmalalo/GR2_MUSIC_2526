@@ -51,3 +51,18 @@ void liberer(Musique ** head) {
     *head = NULL;
 }
 
+
+void addLast(Musique ** head, char artiste[30], char titre[50], int duree) {
+    Musique* new =  createMusic(artiste, titre, duree);
+    Musique* last = NULL;
+
+    if (*head == NULL) {
+        *head = new;
+    }else {
+        last = *head;
+        while (last->suiv !=NULL) {
+            last= last->suiv;
+        }
+        last->suiv = new;
+    }
+}

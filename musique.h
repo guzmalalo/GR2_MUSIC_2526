@@ -18,4 +18,9 @@ void addLast(Musique ** playlist, char artiste[30], char titre[50], int duree);
 void afficher(Musique * playlist);
 void liberer(Musique ** playlist);
 
+void effacerParArtiste(Musique ** playlist, char artiste[30]);
+void effacerParTitre(Musique ** playlist, char artiste[30]);
+int dureePlayList(Musique *playlist);
+void classerParDuree(Musique *playlist);
+
 #endif
