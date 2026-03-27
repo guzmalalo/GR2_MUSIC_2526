@@ -9,5 +9,6 @@ int main(void) {
 
     afficher(playlist);
 
+    liberer(&playlist);
     return 0;
 }

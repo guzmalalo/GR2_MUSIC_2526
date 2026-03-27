@@ -40,3 +40,14 @@ void afficher(Musique * playList) {
     }
 }
 
+void liberer(Musique ** head) {
+    Musique * temp = NULL;
+
+    while (*head !=NULL) {
+        temp = *head;
+        *head = (*head)->suiv;
+        free(temp);
+    }
+    *head = NULL;
+}
+
