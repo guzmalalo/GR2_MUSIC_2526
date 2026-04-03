@@ -12,7 +12,9 @@ Musique *createMusic(char artiste[30], char titre[50], int duree) {
     newMusique->duree = duree;
     strcpy(newMusique->artiste, artiste);
     strcpy(newMusique->titre, titre);
+
     newMusique->suiv = NULL;
+    newMusique->prec = NULL;
 
     return newMusique;
 }
@@ -26,6 +28,7 @@ void addFirst(Musique **pPlaylist, char artiste[30], char titre[50], int duree) 
         *pPlaylist = newMusique;
     } else {
         newMusique->suiv = *pPlaylist;
+        (*pPlaylist)->prec = newMusique;
         *pPlaylist = newMusique;
     }
 }
@@ -43,6 +46,7 @@ void addLast(Musique **head, char artiste[30], char titre[50], int duree) {
             last = last->suiv;
         }
         last->suiv = new;
+        new->prec =last;
     }
 }
 
@@ -71,7 +75,7 @@ void playNow(Musique *playlist) {
     while (current != NULL && choice != 0) {
         // affichage de la chanson
         printf("> %s - %s (%d sec)\n", current->titre, current->artiste, current->duree);
-        printf("1: Next | 0: Quit \n");
+        printf("1: Next | 2: Prev | 0: Quit \n");
         scanf("%d", &choice);
 
         // choix
@@ -81,6 +85,9 @@ void playNow(Musique *playlist) {
                 break;
             case 1:
                 current = current->suiv;
+                break;
+            case 2:
+                current = current->prec;
                 break;
             default:
                 printf("Choix inconnu\n");

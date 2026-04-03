@@ -9,6 +9,7 @@ struct musique {
     int  duree;
 
     struct musique * suiv;
+    struct musique * prec;
 };
 typedef struct musique Musique;
 
@@ -31,7 +32,7 @@ int dureePlayList(Musique *playlist);
 
 // à faire chez vous
 void effacerParArtiste(Musique ** playlist, char artiste[30]);
-void effacerParTitre(Musique ** playlist, char artiste[30]);
+void effacerParTitre(Musique ** playlist, char titre[30]);
 void classerParDuree(Musique *playlist);
 
 #endif
