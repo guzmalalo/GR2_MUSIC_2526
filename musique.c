@@ -56,13 +56,20 @@ void addLast(Musique **head, char artiste[30], char titre[50], int duree) {
 }
 
 void afficher(Musique *playList) {
-    while (playList != NULL) {
-        printf("Titre   : %s\n", playList->titre);
-        printf("Artiste : %s\n", playList->artiste);
-        printf("Duree   : %d\n", playList->duree / 60);
+
+    if (playList == NULL) {
+        printf("La liste es vide");
+        return;
+    }
+
+    Musique* parcours = playList;
+    while (parcours->suiv != playList) {
+        printf("Titre   : %s\n", parcours->titre);
+        printf("Artiste : %s\n", parcours->artiste);
+        printf("Duree   : %d\n", parcours->duree / 60);
         printf("---\n");
 
-        playList = playList->suiv;
+        parcours = parcours->suiv;
     }
 }
 
@@ -106,12 +113,18 @@ void playNow(Musique *playlist) {
 
 
 void liberer(Musique **head) {
-    Musique *temp = NULL;
-
-    while (*head != NULL) {
-        temp = *head;
-        *head = (*head)->suiv;
-        free(temp);
+    // si la liste est vide
+    if (*head == NULL) {
+        return;
     }
+
+    Musique *parcours = (*head)->suiv;
+    while (parcours != *head) {
+        Musique * aEffacer = parcours;
+        parcours = parcours ->suiv;
+        free(aEffacer);
+    }
+
+    free(*head);
     *head = NULL;
 }
