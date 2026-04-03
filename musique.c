@@ -26,27 +26,32 @@ void addFirst(Musique **pPlaylist, char artiste[30], char titre[50], int duree) 
 
     if (*pPlaylist == NULL) {
         *pPlaylist = newMusique;
+        newMusique->suiv = newMusique;
+        newMusique->prec = newMusique;
     } else {
-        newMusique->suiv = *pPlaylist;
+        (*pPlaylist)->prec->suiv = newMusique;
+        newMusique->prec =(*pPlaylist)->prec;
         (*pPlaylist)->prec = newMusique;
+        newMusique->suiv = (*pPlaylist);
+
         *pPlaylist = newMusique;
     }
 }
 
 // Ajout à la fin
 void addLast(Musique **head, char artiste[30], char titre[50], int duree) {
-    Musique *new = createMusic(artiste, titre, duree);
+    Musique *newMusique = createMusic(artiste, titre, duree);
     Musique *last = NULL;
 
     if (*head == NULL) {
-        *head = new;
+        *head = newMusique;
+        newMusique->suiv = newMusique;
+        newMusique->prec = newMusique;
     } else {
-        last = *head;
-        while (last->suiv != NULL) {
-            last = last->suiv;
-        }
-        last->suiv = new;
-        new->prec =last;
+        (*head)->prec->suiv = newMusique;
+        newMusique->prec =(*head)->prec;
+        (*head)->prec = newMusique;
+        newMusique->suiv = (*head);
     }
 }
 
